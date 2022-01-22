@@ -1,0 +1,19 @@
+{
+  "name": "unity-game-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "proxy": "http://localhost:3001",
+  "keywords": [],
+  "author": "Kheyali Mitra",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.1.3",
+    "express": "^4.17.2",
+    "mongodb": "^4.3.1"
+  }
+}
