@@ -12,8 +12,12 @@
   "author": "Kheyali Mitra",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.1",
     "bootstrap": "^5.1.3",
+    "cors": "^2.8.5",
     "express": "^4.17.2",
-    "mongodb": "^4.3.1"
+    "express-validator": "^6.14.0",
+    "mongodb": "^4.3.1",
+    "mongoose": "^6.1.7"
   }
 }
