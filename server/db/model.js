@@ -1,16 +1,15 @@
-const { Int32 } = require("mongodb");
-const { connect } = require("mongoose");
-
-const mongoose = require('./connection');
+// const { Int32 } = require("mongodb");
+// const { connect } = require("mongoose");
+const mongoose = require('mongoose');
  
 // create an schema
-var userSchema = new mongoose.Schema({
+var gameDetailsSchema = new mongoose.Schema({
   category: String,
   title: String,
   subtitle: String,
   description: String,
   images: Array,
-  type: Int32,
+  type: Number,
   tags: Array,
   author: String,
   replayBundleUrlJson: String,
@@ -20,6 +19,6 @@ var userSchema = new mongoose.Schema({
   version: Number
 });
  
-var userModel=mongoose.model('users',userSchema);
- 
-module.exports = mongoose.model(Users, userModel);
+var gameDetails = mongoose.model('games', gameDetailsSchema);
+module.exports = gameDetails;
+// mongoose.model(Games, gameDetails);

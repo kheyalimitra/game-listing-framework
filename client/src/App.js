@@ -1,7 +1,10 @@
 import React from "react";
+import axios from "axios";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
+const baseURL = "http://localhost:8080/add-game";
 const initialFormData = {
   category: "",
   title: "",
@@ -19,6 +22,7 @@ const initialFormData = {
 };
 const App = () => {
   const [formData, updateFormData] = React.useState(initialFormData);
+  const [post, setPost] = React.useState(null);
   const handleChange = (e) => {
     if (e.target.name === 'imageUrl') {
       formData.images[0].url = e.target.value.trim();
@@ -26,7 +30,7 @@ const App = () => {
     if (e.target.name === 'imageType') {
       formData.images[0].type = e.target.value.trim();
     }
-    if(e.target.name === 'imagetags') {
+    if(e.target.name === 'imageTags') {
       const tagsList = e.target.value.split(' ');
       formData.tags = tagsList;
     }
@@ -43,7 +47,14 @@ const App = () => {
     });
     e.preventDefault()
     console.log(formData);
-    // ... submit to API or something
+    axios
+      .post(baseURL, {
+        formData
+      })
+      .then((response) => {
+        setPost(response.data);
+      });
+    console.log(post);
   }; 
   return (
     <div className="App">
@@ -93,7 +104,7 @@ const App = () => {
       </div>
       <div class="form-group">
         <label for="formGroupTags" class="form-group-label">Tags</label>
-        <input type="text" name="imagetags" id="formGroupTags" placeholder="Tags" onChange={handleChange}/>
+        <input type="text" name="imageTags" id="formGroupTags" placeholder="Tags" onChange={handleChange}/>
       </div>
       <div class="form-group">
         <label for="formGroupStream" class="form-group-label">IsStreamable</label>
