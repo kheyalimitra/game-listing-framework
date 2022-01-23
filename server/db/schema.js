@@ -1,7 +1,11 @@
-// const { Int32 } = require("mongodb");
-// const { connect } = require("mongoose");
+// const dbConfig = require("./config");
 const mongoose = require('mongoose');
- 
+// mongoose.Promise = global.Promise;
+// const db = {};
+
+// db.mongoose = mongoose;
+// db.url = dbConfig.url;
+
 // create an schema
 var gameDetailsSchema = new mongoose.Schema({
   category: String,
@@ -19,6 +23,7 @@ var gameDetailsSchema = new mongoose.Schema({
   version: Number
 });
  
-var gameDetails = mongoose.model('games', gameDetailsSchema);
-module.exports = gameDetails;
+const gameModel = mongoose.model('games', gameDetailsSchema);
+module.exports = gameModel;
+// mongoose.model("Games", gameModel);
 // mongoose.model(Games, gameDetails);

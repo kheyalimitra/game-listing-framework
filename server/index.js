@@ -1,15 +1,22 @@
 const express  = require("express");
 const path = require("path");
-var createError = require('http-errors');
-// var express = require('express');
-// var path = require('path');
-// var cookieParser = require('cookie-parser');
-// var logger = require('morgan');
-// var bodyParser = require('body-parser');
-// var flash = require('express-flash');
-// var session = require('express-session');
-var gamesRouter = require('./routes/games');
+const createError = require('http-errors');
+const gamesRouter = require('./routes/games');
 
+const db = require("./db/connection");
+db.mongoose
+  .connect(db.url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => {
+    console.log("Connected to the database!");
+  })
+  .catch(err => {
+    console.log("Cannot connect to the database!", err);
+    process.exit();
+  });
+  
 const app = express();
 
 app.use(express.json());

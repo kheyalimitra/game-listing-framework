@@ -1,13 +1,47 @@
-const MongoClient = require('mongodb').MongoClient
-const url = 'mongodb://127.0.0.1:27017'
-const dbName = 'games'
-let db
-MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
-  if (err) return console.log(err);
+const MongoClient = require('mongodb').MongoClient;
+const dbConfig = require('./config');
 
-  // Storing a reference to the database so you can use it later
-  db = client.db(dbName);
-  console.log(`Connected MongoDB: ${url}`);
-  console.log(`Database: ${dbName}`);
-  
-})
+const client = new MongoClient(dbConfig.url, {useUnifiedTopology:true});
+
+const insertEntry = async(jsonData)  => {
+  await client.connect(); 
+  const db = client.db(dbConfig.dbName);
+  console.log("Connected correctly to server");
+  try {
+    db.collection(dbConfig.collectionName).insertOne(jsonData._doc, (err, res) => {
+      return res;
+    })
+  } catch (err){
+    throw new Error(err);
+  } finally {
+    await client.close();
+  }
+}
+
+const findEntry = async(query={}, options={})  => {
+  await client.connect(); 
+  const db = client.db(dbConfig.dbName);
+  console.log("Connected correctly to server");
+  try {
+    return new Promise(async function(resolve, reject) {
+      await db.collection(dbConfig.collectionName).find().toArray(async (err, docs) => {
+        if (err) {
+          console.log("No documents found!");
+          console.error(err);
+        }
+        // result = await cursor;
+        // return result;
+        await client.close();
+        return resolve(docs);
+      });
+    });
+  } catch (err){
+    await client.close();
+    throw new Error(err);
+  } 
+}
+
+module.exports = { 
+  insertEntry,
+  findEntry
+}

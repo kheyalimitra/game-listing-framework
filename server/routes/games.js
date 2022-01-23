@@ -1,18 +1,20 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const { check, validationResult } = require('express-validator');
 // var mongoose = require('mongoose');
-var gameModel = require('../db/model');
-const connect = require('../db/connection');
+const gameModel = require('../db/schema');
+const { insertEntry, findEntry } = require('../db/crud');
+// const connect = require('../db/connection');
 // const db = connect;
 // mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true });
 // const conSuccess = mongoose.connection
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'add games' });
+router.get('/', async function(req, res, next) {
+  const result = await findEntry();
+  res.json({'result': result });
 });
  
-router.post('/add-game', function(req, res, next) {
+router.post('/add-game', async(req, res, next) => {
     check('category', 'category is required').notEmpty()
     check('title', 'title is required').notEmpty()
     check('author', 'author is required').notEmpty() 
@@ -20,11 +22,6 @@ router.post('/add-game', function(req, res, next) {
     var result = validationResult(req)
      
     if( !result  || (result.errors.length) === 0) {   //No errors were found.  Passed Validation!
-      
-      connect.on("error", function(error){
-        console.log("connection error:", error);
-      });
-      connect.once( "open", () => {
         var gameDetails = new gameModel({
           category: req.body.category,
           title: req.body.title,
@@ -40,18 +37,12 @@ router.post('/add-game', function(req, res, next) {
           isStreamable: req.body.isStreamable,
           version: req.body.version
         });
-        gameDetails.save((err, doc) => {
-          if (!err){
-            req.send({'success': doc });
-            // res.redirect('/');
-          }
-          else
-            console.log('Error during record insertion : ' + err);
-        });
-        connect.close(function(){
-          console.log("connection closed.");
-        });
-      });
+        try {
+          await insertEntry(gameDetails);
+          res.send({'success': 200});
+        } catch (err) {
+          res.send({"error": err});
+        }
     }
     else {   //Display errors to user
         var error_msg = ''
