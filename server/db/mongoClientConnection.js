@@ -1,9 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const dbConfig = require('./config');
 
-
 const client = new MongoClient(dbConfig.url, {useUnifiedTopology:true});
-
 async function run() {
   await client.connect(); 
   const db = client.db(dbConfig.dbName);

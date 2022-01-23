@@ -3,6 +3,10 @@ import App from './App';
 
 test('renders game tile form', () => {
   render(<App />);
-  const labelElement = screen.getByLabelText(/Category/i);
-  expect(labelElement).toBeInTheDocument();
+  const catElement = screen.getByLabelText(/Category/i);
+  const desElement = screen.getByLabelText(/Description/i);
+  const authElement = screen.getByLabelText(/Author/i);
+  expect(catElement).toBeInTheDocument();
+  expect(desElement).toBeInTheDocument();
+  expect(authElement).toBeInTheDocument();
 });
