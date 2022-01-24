@@ -8,13 +8,13 @@ async function run() {
   const collection = db.collection(dbConfig.collectionName);
   console.log("Connected correctly to server");
   try {
-    // await db.createCollection(dbConfig.collectionName);
+    await db.createCollection(dbConfig.collectionName);
     // await collection.drop({}); 
     console.log(`created ${dbConfig.collectionName} collection`); 
-    db.collection(dbConfig.collectionName).insertOne({id: 2, name: "2"}, (err, res) => {
-      console.log("1 record inserted");
+    // db.collection(dbConfig.collectionName).insertOne({id: 2, name: "2"}, (err, res) => {
+    //   console.log("1 record inserted");
 
-    })
+    // })
 
     // db.collection(dbConfig.collectionName).find({}, function(err, result) {
     //   if (err) throw err;

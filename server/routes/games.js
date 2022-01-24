@@ -1,14 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
-const { insertEntry, findEntry } = require('../db/crud');
+const { insertEntry, findEntry, deleteEntry } = require('../db/crud');
 
 router.get('/games', async function(req, res) {
   const query = req.query;
   const result = await findEntry(query);
   res.json({'result': result });
 });
-
+router.delete('/games', async function(req, res) {
+  const query = req.query;
+  const response = await deleteEntry(query);
+  res.json({'success': `${response.deletedCount} entries are deleted` });
+});
 router.post('/add-game', async(req, res) => {
     check('category', 'category is required').notEmpty()
     check('title', 'title is required').notEmpty()
