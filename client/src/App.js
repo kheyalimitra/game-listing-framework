@@ -22,6 +22,10 @@ const initialFormData = {
 const App = () => {
   const [formData, updateFormData] = React.useState(initialFormData);
   const [post, setPost] = React.useState(null);
+  const closeAlert = (e) => {
+    const parentDivAlertElement = e.target.parentElement.parentNode;
+    parentDivAlertElement.style.display = 'none';
+  }
   const handleChange = (e) => {
     if (e.target.name === 'imageUrl') {
       formData.images[0].url = e.target.value.trim();
@@ -39,6 +43,7 @@ const App = () => {
     });
 
   };
+
   const handleSubmit = (e) => {
     updateFormData({
       ...formData,
@@ -57,6 +62,14 @@ const App = () => {
       })
       .then((response) => {
         setPost(response.data);
+        if(response.data.success) {
+          const successAlertElement = document.getElementById("successAlert");
+          successAlertElement.style.display = 'inline';
+        } else {
+          const failureAlertElement = document.getElementById("failureAlert");
+          failureAlertElement.style.display = 'inline';
+        }
+        
         console.log(post);
       });
 
@@ -66,60 +79,72 @@ const App = () => {
       <h1>
         Enter the Gametile details here:
       </h1>
+      <div className="alert alert-success alert-dismissible fade show" role="alert" id="successAlert">
+        Successfully added 1 entry. 
+        <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={closeAlert}>
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+      <div className="alert alert-danger alert-dismissible fade show" role="alert" id="failureAlert">
+        Error! something went wrong. Nothing is added. 
+        <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={closeAlert}>
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
       <form className="App-header">
       <div className="form-group">
-        <label htmlFor="formGroupCategory" className="form-group-label" >Category</label>
+        <label htmlFor="formGroupCategory" className="col-sm-2 colf-for-label label-col" >Category</label>
         <input type="text" name="category" id="formGroupCategory" placeholder="Category" onChange={handleChange} />
       </div>
       <div className="form-group">
-        <label htmlFor="formGroupTitle" className="form-group-label" >Title</label>
+        <label htmlFor="formGroupTitle" className="col-sm-2 colf-for-label label-col" >Title</label>
         <input type="text"  name="title" id="formGroupTitle" placeholder="Title" onChange={handleChange}/>
       </div>
       <div className="form-group">
-        <label htmlFor="formGroupSubtitle" className="form-group-label">Subtitle</label>
+        <label htmlFor="formGroupSubtitle" className="col-sm-2 colf-for-label label-col">Subtitle</label>
         <input type="text"  name="subtitle" id="formGroupSubtitle" placeholder="Subtitle" onChange={handleChange}/>
       </div>
       <div className="form-group">
-        <label htmlFor="formGroupDescription" className="form-group-label">Description</label>
+        <label htmlFor="formGroupDescription" className="col-sm-2 colf-for-label label-col">Description</label>
         <input type="text"  name="description" id="formGroupDescription" placeholder="Description" onChange={handleChange}/>
       </div>
       <div className="form-group">
-        <label htmlFor="formGroupReplay" className="form-group-label">ReplayBundleUrlJson</label>
+        <label htmlFor="formGroupReplay" className="col-sm-2 colf-for-label label-col">ReplayBundleUrlJson</label>
         <input type="text"  name="replayBundleUrlJson" id="formGroupReplay" placeholder="ReplayBundleUrlJson" onChange={handleChange}/>
       </div>
       <div className="form-group">
-        <label htmlFor="formGroupDuration" className="form-group-label">Duration</label>
+        <label htmlFor="formGroupDuration" className="col-sm-2 colf-for-label label-col">Duration</label>
         <input type="text"  name="duration" id="formGroupDuration" placeholder="Duration" onChange={handleChange}/>
       </div>
       <div className="form-group">
-        <label htmlFor="formGroupDownload" className="form-group-label">IsDownloadable</label>
+        <label htmlFor="formGroupDownload" className="col-sm-2 colf-for-label label-col">IsDownloadable</label>
         <input type="text" name="isDownloadable" id="formGroupDownload" placeholder="True / False" onChange={handleChange}/>
       </div>
       <div className="form-group">
-        <label htmlFor="formGroupAuthor" className="form-group-label">Author</label>
+        <label htmlFor="formGroupAuthor" className="col-sm-2 colf-for-label label-col">Author</label>
         <input type="text"  name="author" id="formGroupAuthor" placeholder="Author" onChange={handleChange}/>
       </div>
-      <div className="form-group" >
-        <label htmlFor="formGroupImages" className="form-group-label">ImageType</label>
+      <div className="form-group">
+        <label htmlFor="formGroupImages" className="col-sm-2 colf-for-label label-col">ImageType</label>
         <input type="text" name="imageType" id="formGroupImages" placeholder="1" onChange={handleChange}/>
       </div>
       <div className="form-group">
-        <label htmlFor="formGroupImageURL" className="form-group-label">ImageUrl</label>
+        <label htmlFor="formGroupImageURL" className="col-sm-2 colf-for-label label-col">ImageUrl</label>
         <input type="text" name="imageUrl" id="formGroupImageURL" placeholder="url" onChange={handleChange}/>
       </div>
       <div className="form-group">
-        <label htmlFor="formGroupTags" className="form-group-label">Tags</label>
+        <label htmlFor="formGroupTags" className="col-sm-2 colf-for-label label-col">Tags</label>
         <input type="text" name="imageTags" id="formGroupTags" placeholder="Tags" onChange={handleChange}/>
       </div>
       <div className="form-group">
-        <label htmlFor="formGroupStream" className="form-group-label">IsStreamable</label>
+        <label htmlFor="formGroupStream" className="col-sm-2 colf-for-label label-col">IsStreamable</label>
         <input type="text" name="isStreamable" id="formGroupStream" placeholder="True / False" onChange={handleChange}/>
       </div>
       <div className="form-group">
-        <label htmlFor="formGroupVersion" className="form-group-label">Version</label>
+        <label htmlFor="formGroupVersion" className="col-sm-2 colf-for-label label-col">Version</label>
         <input type="text" name="version" id="formGroupVersion" placeholder="Version" onChange={handleChange}/>
       </div>
-      <button type="submit" onClick={handleSubmit} className="btn btn-primary">Submit</button>
+      <button type="submit" onClick={handleSubmit} className="btn btn-primary submit-btn">Submit</button>
     </form>
     </div>
   );

@@ -20,5 +20,13 @@
   <body>
     
     <div id="root"></div>
+    <script type="text/javascript">
+      window.addEventListener('DOMContentLoaded', (event) => {
+        const successAlertElement = document.getElementById("successAlert");
+        const failureAlertElement = document.getElementById("failureAlert");
+        successAlertElement.style.display = 'none';
+        failureAlertElement.style.display = 'none';
+      });
+    </script>
   </body>
 </html>
