@@ -3,7 +3,6 @@ import axios from "axios";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 const baseURL = "http://localhost:8080/add-game";
 const initialFormData = {
   category: "",
@@ -45,16 +44,22 @@ const App = () => {
       ...formData,
       [e.target.name]: e.target.value.trim()
     });
-    e.preventDefault()
-    console.log(formData);
+    e.preventDefault();
+    // Remove empty keys
+    Object.keys(formData).forEach(key => {
+      if (formData[key] === '') {
+        delete formData[key];
+      }
+    });
     axios
       .post(baseURL, {
-        formData
+        ...formData
       })
       .then((response) => {
         setPost(response.data);
+        console.log(post);
       });
-    console.log(post);
+
   }; 
   return (
     <div className="App">

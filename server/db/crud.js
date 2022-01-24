@@ -8,13 +8,13 @@ const insertEntry = async(jsonData)  => {
   const db = client.db(dbConfig.dbName);
   console.log("Connected correctly to server");
   try {
-    db.collection(dbConfig.collectionName).insertOne(jsonData._doc, (err, res) => {
+    db.collection(dbConfig.collectionName).insertOne(jsonData, async(err, res) => {
+      await client.close();
       return res;
     })
   } catch (err){
-    throw new Error(err);
-  } finally {
     await client.close();
+    throw new Error(err);
   }
 }
 
@@ -23,19 +23,18 @@ const findEntry = async(query={}, options={})  => {
   const db = client.db(dbConfig.dbName);
   console.log("Connected correctly to server");
   try {
-    return new Promise(async function(resolve, reject) {
-      await db.collection(dbConfig.collectionName).find().toArray(async (err, docs) => {
+    return new Promise(async (resolve, reject) => {
+      db.collection(dbConfig.collectionName).find(query).toArray(async (err, docs) => {
         if (err) {
           console.log("No documents found!");
           console.error(err);
+          throw new Error(err);
         }
-        // result = await cursor;
-        // return result;
         await client.close();
         return resolve(docs);
       });
     });
-  } catch (err){
+  } catch (err) {
     await client.close();
     throw new Error(err);
   } 
