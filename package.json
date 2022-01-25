@@ -5,21 +5,26 @@
   "main": "index.js",
   "scripts": {
     "start": "node server/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --runInBand ./test"
   },
   "proxy": "http://localhost:3001",
   "keywords": [],
   "author": "Kheyali Mitra",
   "license": "ISC",
+  "jest": {
+    "preset": "@shelf/jest-mongodb"
+  },
   "dependencies": {
+    "@shelf/jest-mongodb": "^2.2.0",
     "axios": "^0.25.0",
     "body-parser": "^1.19.1",
     "bootstrap": "^5.1.3",
     "cors": "^2.8.5",
     "express": "^4.17.2",
-    "express-flash": "^0.0.2",
     "express-validator": "^6.14.0",
+    "jest": "^27.4.7",
     "mongodb": "^4.3.1",
-    "mongoose": "^6.1.7"
+    "mongodb-memory-server": "^8.2.0",
+    "mongoose": "^6.1.8"
   }
 }
