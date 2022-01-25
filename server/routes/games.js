@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 const { 
   handleCreateGame,
-  handleFetchGames,
+  handleFetchGame,
   handleDeleteGame
 } = require('../handlers/games');
 
-router.get('/games', handleCreateGame);
-router.post('/add-game', handleFetchGames);
+router.get('/games', handleFetchGame);
+router.post('/add-game', handleCreateGame);
 router.delete('/games', handleDeleteGame);
  
 module.exports = router;

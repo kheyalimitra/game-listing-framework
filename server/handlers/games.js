@@ -2,17 +2,17 @@ const { check, validationResult } = require('express-validator');
 const { insertEntry, findEntry, deleteEntry } = require('../db/crud');
 
 
-const handleCreateGame = async (req, res) => {
+const handleFetchGame = async (req, res) => {
   const query = req.query;
   const result = await findEntry(query);
-  res.json({'result': result });
+  res.send({ result });
 }
 const handleDeleteGame = async (req, res) => {
   const query = req.query;
   const response = await deleteEntry(query);
-  res.json({'success': `${response.deletedCount} entries are deleted` });
+  res.send({'success': `${response.deletedCount} entries are deleted` });
 }
-const handleFetchGames = async(req, res) => {
+const handleCreateGame = async(req, res) => {
   check('category', 'category is required').notEmpty()
   check('title', 'title is required').notEmpty()
   check('author', 'author is required').notEmpty() 
@@ -36,6 +36,6 @@ const handleFetchGames = async(req, res) => {
 };
 module.exports = {
   handleCreateGame,
-  handleFetchGames,
+  handleFetchGame,
   handleDeleteGame
 }
