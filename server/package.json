@@ -1,0 +1,33 @@
+{
+  "name": "unity-game-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest --runInBand ./test",
+    "frontend-start": "cd client && npm start"
+  },
+  "keywords": [],
+  "author": "Kheyali Mitra",
+  "license": "ISC",
+  "jest": {
+    "preset": "@shelf/jest-mongodb"
+  },
+  "dependencies": {
+    "axios": "^0.25.0",
+    "body-parser": "^1.19.1",
+    "bootstrap": "^3.4.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "express-validator": "^6.14.0",
+    "mongodb": "^4.3.1",
+    "mongoose": "^6.1.8",
+    "react-bootstrap": "^2.1.1"
+  },
+  "devDependencies": {
+    "@shelf/jest-mongodb": "^2.2.0",
+    "jest": "^27.4.7",
+    "mongodb-memory-server": "^8.2.0"
+  }
+}
