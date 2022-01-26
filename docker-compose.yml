@@ -1,0 +1,33 @@
+version: "3"
+services:
+       frontend1:
+           container_name: frontend1
+           image: latest123/frontend
+           restart: always
+           build: 
+            context: ./client
+            dockerfile: ./Dockerfile
+           command: npm start
+           ports:
+             - "3000:3001"
+           links:
+             - backend1
+      
+       backend1:
+           container_name: backend1
+           image: latest123/backend
+           restart: always
+           build: .
+           command: npm start
+           ports:
+             - "8080:8080"
+           links:
+             - mongodb1
+       mongodb1:
+             container_name: mongodb
+             image: mongo
+             volumes:
+               - ./data:/data/db
+             ports:
+               - '27017:27017'
+             restart: unless-stopped

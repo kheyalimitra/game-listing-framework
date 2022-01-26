@@ -36,7 +36,7 @@ describe('Test games handler', () => {
     const req = mockRequest();
     const res = mockResponse();
     await handleFetchGame(req, res);
-    expect(res.send).toHaveBeenCalledWith({result: {_id: 'some-id', category: 'live'}});
+    expect(res.send).toHaveBeenCalledWith( {_id: 'some-id', category: 'live'});
   })
   it ('should delete record', async() => {
     const req = mockRequest();

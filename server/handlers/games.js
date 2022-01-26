@@ -5,7 +5,7 @@ const { insertEntry, findEntry, deleteEntry } = require('../db/crud');
 const handleFetchGame = async (req, res) => {
   const query = req.query;
   const result = await findEntry(query);
-  res.send({ result });
+  res.send(result);
 }
 const handleDeleteGame = async (req, res) => {
   const query = req.query;
