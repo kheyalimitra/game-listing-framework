@@ -1,33 +1,31 @@
 version: "3"
 services:
-       frontend1:
-           container_name: frontend1
-           image: latest123/frontend
-           restart: always
-           build: 
-            context: ./client
-            dockerfile: ./Dockerfile
-           command: npm start
-           ports:
-             - "3000:3001"
-           links:
-             - backend1
-      
-       backend1:
-           container_name: backend1
-           image: latest123/backend
-           restart: always
-           build: .
-           command: npm start
-           ports:
-             - "8080:8080"
-           links:
-             - mongodb1
-       mongodb1:
-             container_name: mongodb
-             image: mongo
-             volumes:
-               - ./data:/data/db
-             ports:
-               - '27017:27017'
-             restart: unless-stopped
+  react-app:
+    image: react-app
+    stdin_open: true
+    ports: 
+      - "3000:3000"
+    networks:
+      - mern-app
+  api-server:
+    image: api-server
+    ports:
+      - "5000:5000"
+    networks:
+      - mern-app
+    depends_on:
+      - mongodb
+  mongodb:
+    image: mongo:3.6.19-xenial
+    ports:
+      - "27017:27017"
+    networks:
+      - mern-app
+    volumes:
+      - mongo-data:/data/db
+networks:
+  mern-app:
+    driver: bridge
+volumes:
+  mongo-data:
+    driver: local
