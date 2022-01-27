@@ -5,7 +5,11 @@ const { insertEntry, findEntry, deleteEntry } = require('../db/crud');
 const handleFetchGame = async (req, res) => {
   const query = req.query;
   const result = await findEntry(query);
-  res.send(result);
+  if (result) {
+    res.send(result);
+  } else {
+    res.send({'error': result})
+  }
 }
 const handleDeleteGame = async (req, res) => {
   const query = req.query;
@@ -29,7 +33,7 @@ const handleCreateGame = async(req, res) => {
   else {
       var error_msg = ''
       errors.forEach(function(error) {
-        error_msg += error.msg + '<br>'
+        error_msg += error.msg + ' '
       })                
       req.send({'error': error_msg})
   }

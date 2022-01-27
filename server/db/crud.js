@@ -23,7 +23,7 @@ const findEntry = async(query={}, options={})  => {
   const db = client.db(dbConfig.dbName);
   try {
     return new Promise(async (resolve, reject) => {
-      db.collection(dbConfig.collectionName).find(query).toArray(async (err, docs) => {
+      db.collection(dbConfig.collectionName).find(query, {projection:{_id:0}}).toArray(async (err, docs) => {
         if (err) {
           console.log("No documents found!");
           console.error(err);
