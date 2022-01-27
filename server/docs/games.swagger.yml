@@ -1,0 +1,86 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Games API
+  description: Games API is used to add, fetch  or delete game details
+
+paths:
+  '/games':
+    get:
+      tags: [Games list]
+      description: 'Games list REST service. Retrieves a list of games based on query. If no filter or query is provided, retrieve all games'
+      parameters:
+        - $ref: '#/parameters/Query'
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: object
+            properties:
+              games:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                    category:
+                      type: string
+                    title:
+                      type: string
+                    subtitle:
+                      type: string
+                    description:
+                      type: number
+                    images:
+                      type: Array Object
+                      example: [{id: 1, url: "//", type: 1}]
+                      description: image details
+                    type:
+                      type: number
+                      example: 1
+                    tags:
+                      type: Array
+                    author:
+                      type: string
+                    replayBundleUrlJson:
+                      type: string
+                    duration:
+                      type: number
+                    isDownloadable:
+                      type: boolean
+                    isStreamable:
+                      type: boolean
+                    version:
+                      type: number
+  '/add-game':
+      post:
+        description: 'Add new game to collection.'
+        parameters:
+          - $ref: '#/parameters/Payload'
+        responses:
+          '200':
+            description: Success
+    '/games':
+      delete:
+        description: 'Delete game from collection based on query'
+        parameters:
+          - $ref: '#/parameters/Query'
+        responses:
+          '200':
+            description: Success
+            
+    parameters:
+    Query:
+      name: Query
+      type: string
+      in: query
+      required: false
+      description: query string, e.g. title=new game
+    Payload:
+      name: Payload
+      type: Object
+      in: body
+      required: true
+      description: JSON object containing all game details
+

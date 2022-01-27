@@ -26,13 +26,13 @@ const App = () => {
     parentDivAlertElement.style.display = "none";
   };
   const handleChange = (e) => {
-    if (e.target.name === "ImageURL") {
+    if (e.target.name === "imageUrl") {
       formData.images[0].url = e.target.value.trim();
     }
-    if (e.target.name === "ImageType") {
+    if (e.target.name === "imageType") {
       formData.images[0].type = e.target.value.trim();
     }
-    if (e.target.name === "ImageTags") {
+    if (e.target.name === "imageTags") {
       const tagsList = e.target.value.split(" ");
       formData.tags = tagsList;
     }
@@ -50,7 +50,12 @@ const App = () => {
     e.preventDefault();
     // Remove empty keys
     Object.keys(formData).forEach((key) => {
-      if (formData[key] === "") {
+      if (
+        formData[key] === "" ||
+        formData[key] === "imageUrl" ||
+        formData[key] === "imageType" ||
+        formData[key] === "imageTags"
+      ) {
         delete formData[key];
       }
     });
@@ -71,48 +76,45 @@ const App = () => {
         console.log(post);
       });
   };
-  const formInputs = [];
-  const inputList = [
-    "Category",
-    "Title",
-    "Subtitle",
-    "Description",
-    "Type",
-    "ImageId",
-    "ImageURL",
-    "ImageType",
-    "Tags",
-    "Author",
-    "ReplayBundleUrlJson",
-    "Duration",
-    "IsDownloadable",
-    "IsStreamable",
-    "Version",
-  ];
-  for (var i = 0; i < inputList.length; i++) {
-    formInputs.push(
-      <div className="form-group">
+  const inputItems = {
+    "Category": "category",
+    "Title": "title",
+    "Subtitle": "subtitle",
+    "Description": "description",
+    "Type": "type",
+    "ImageId": "imageId",
+    "ImageURL": "imageUrl",
+    "ImageType": "imageType",
+    "Tags": "tags",
+    "Author": "author",
+    "ReplayBundleUrlJson": "replayBundleUrlJson",
+    "Duration": "duration",
+    "IsDownloadable": "isDownloadable",
+    "IsStreamable": "isStreamable",
+    "Version": "version",
+  };
+  const formInputs = Object.keys(inputItems).map((key, index) => {
+      return (<div className="form-group">
         <label
-          htmlFor={"formGroup" + inputList[i]}
+          htmlFor={"formGroup" + key}
           className="col-sm-2 colf-for-label label-col"
         >
-          {inputList[i]}
+          {key}
         </label>
         <input
           type="text"
-          name={inputList[i]}
-          id={"formGroup" + inputList[i]}
-          placeholder={inputList[i]}
+          name={inputItems[key]}
+          id={"formGroup" + inputItems[key]}
+          placeholder={key}
           onChange={handleChange}
         />
-      </div>
-    );
-  }
+      </div>);
+  });
   return (
-    <div className="App">
-      <h1>Enter the Gametile details here:</h1>
+    <div className="App-header">
+      <h1 className="App-header">Enter your game details here:</h1>
       <div
-        className="alert alert-success alert-dismissible fade show"
+        className="alert alert-success alert-dismissible alert-msg fade show"
         role="alert"
         id="successAlert"
       >
@@ -128,7 +130,7 @@ const App = () => {
         </button>
       </div>
       <div
-        className="alert alert-danger alert-dismissible fade show"
+        className="alert alert-danger alert-dismissible  alert-msg fade show"
         role="alert"
         id="failureAlert"
       >
