@@ -89,6 +89,26 @@ For the sake of simplicity, all 3 services (frontend, backend and db) are bundle
 - backend api is running on port 5000 by default.
 - db is running on port 27017 by default.
   
-  
-  
- 
+## Assumptions
+- Only 1 image entry is allowed. (id, uril and tag)
+- Tags are allowed as space separate string. UI is not allowiing type and enter way of addition. 
+- React UI is pretty basic, requesting user to all input as string. 
+- Current API allows GET, POST and DELETE methods only. 
+- POST method expects few required keys to be present, `category`, `title`, `author` and `image` details are required in order to add to DB
+- DELETE must have query parameter. 
+- GET without query parameter returns all, GET with query returns specific entry.
+
+## Issues/ Challenges faces:
+- Using Nosql db like MongoDB was a new concept, so there were some learning curve and few issues faced while tried to connect to DB using docker. 
+- Dockeriazation of 3 services were not working initially, took some time to fix issues. 
+- React UI with CSS was bit of a challenge. the UI is still ugly, but that is the most functioning I can create in given time frame.
+- Unity hub: Again, good learning curve was there. Was stuck for a while to figure out where to call the method to fetch record and download images. 
+
+## Future work / Enhancement
+- Fixing UI, the UI needs to be more user friendly and beautiful. We need to allow multiple image entries.
+- Adding more end point to api to allow UPDATE existing records
+- Parameter validation of POST request, GET/DELETE queries
+- Better response from API when there are errors. 
+- May be better C# code for connecting endpoint and downloading images.
+
+
