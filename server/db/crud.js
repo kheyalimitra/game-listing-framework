@@ -44,6 +44,7 @@ const deleteEntry = async(query={}, isRemoveAll=false)  => {
   await client.connect(); 
   const db = client.db(dbConfig.dbName);
   try {
+    if (query.length == 0) throw new Error('query param required');
     return new Promise(async (resolve, reject) => {
     db.collection(dbConfig.collectionName).deleteMany(query, async(err, obj) => {
       if (err) throw err;
@@ -51,7 +52,7 @@ const deleteEntry = async(query={}, isRemoveAll=false)  => {
       await client.close();
       return resolve(obj);
     });
-    // run 1 time to remove all entry
+    // In case we want to drop collection, this has to be true from calling function
     if (isRemoveAll) {
       db.collection(dbConfig.collectionName).drop(function(err, delOK) {
         if (err) throw err;

@@ -1,22 +1,27 @@
 const { check, validationResult } = require('express-validator');
 const { insertEntry, findEntry, deleteEntry } = require('../db/crud');
 
-
 const handleFetchGame = async (req, res) => {
   const query = req.query;
   const result = await findEntry(query);
-  if (result) {
+  if (result && Array.isArray(result)) {
     res.send(result);
   } else {
-    res.send({'error': result})
+    res.send({'error': 'something went wrong'})
   }
 }
 const handleDeleteGame = async (req, res) => {
   const query = req.query;
   const response = await deleteEntry(query);
-  res.send({'success': `${response.deletedCount} entries are deleted` });
+  if(response && response.deletedCount) {
+    res.send({'success': `${response.deletedCount} entries are deleted` });
+  }
+  res.send({'error' : 'nothing is deleted'});
+
 }
 const handleCreateGame = async(req, res) => {
+  // in order to add entry to collection,we need few fields listed below.
+  // without them, error will be thrown.
   check('category', 'category is required').notEmpty()
   check('title', 'title is required').notEmpty()
   check('author', 'author is required').notEmpty() 
