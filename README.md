@@ -46,6 +46,8 @@ I have also `dockrized` these services for the ease of running all 3 services (f
   ```
   Please find swagger doc from `server/docs/`
   
+  **Please find  all `curl` examples from `server/README`**
+  
   #### Test
   - Unit Test to test CRUD operations
   - Integration test to test handler 
@@ -72,6 +74,9 @@ I have also `dockrized` these services for the ease of running all 3 services (f
  - `server/db/config.js` : Contains db name, collection name and url
  ## How to run
  ### Using Docker
+ 
+ **Prerequisit: Docker** 
+ 
   Please read the Readme from `client` and `server` folder. It shows instruction on how to build docker images. We need both `react-app` and `api-service` images to run `docker compose`.
   ##### Docerization
 For the sake of simplicity, all 3 services (frontend, backend and db) are bundled together in 3 docker containers. Using `docker-compose up`, we can easily run this in our local.
