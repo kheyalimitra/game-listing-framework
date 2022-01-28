@@ -26,6 +26,10 @@ const App = () => {
     parentDivAlertElement.style.display = "none";
   };
   const handleChange = (e) => {
+    // Generate images list and tags list. 
+    /* ToDo: only 1 image entry (id, url and tags) are allowed now
+       We need to change the UI to allow more images
+    */
     if (e.target.name === "imageUrl") {
       formData.images[0].url = e.target.value.trim();
     }
@@ -48,7 +52,7 @@ const App = () => {
       [e.target.name]: e.target.value.trim(),
     });
     e.preventDefault();
-    // Remove empty keys
+    // Remove empty and redundant keys
     Object.keys(formData).forEach((key) => {
       if (
         formData[key] === "" ||

@@ -1,7 +1,9 @@
 import { render, screen } from '@testing-library/react';
+import React from 'react';
 import App from './App';
 
-test('renders game tile form', () => {
+
+test('renders react DOM', () => {
   render(<App />);
   const catElement = screen.getByLabelText(/Category/i);
   const desElement = screen.getByLabelText(/Description/i);
