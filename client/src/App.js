@@ -98,10 +98,11 @@ const App = () => {
     "Version": "version",
   };
   const formInputs = Object.keys(inputItems).map((key, index) => {
-      return (<div className="form-group">
+      return (<div className="form-group" key={index+"div"}>
         <label
           htmlFor={"formGroup" + inputItems[key]}
           className="col-sm-2 colf-for-label label-col"
+          key={index+"label"}
         >
           {key}
         </label>
@@ -111,6 +112,7 @@ const App = () => {
           id={"formGroup" + inputItems[key]}
           placeholder={key}
           onChange={handleChange}
+          key={index+"input"}
         />
       </div>);
   });

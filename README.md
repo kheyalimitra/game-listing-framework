@@ -53,6 +53,8 @@ I have also `dockrized` these services for the ease of running all 3 services (f
   To run test from local, 
   - from terminal, go to the repo, `cd ./server`
   - run `npm test`
+  - from terminal, go to the repo, `cd ./client`
+  - run `npm test`
  ## Database
  After doing market research, I found MongoDB will be suitable for this app as this is 
  - 1. NoSQL, meaning no need to create table structure
@@ -63,11 +65,16 @@ I have also `dockrized` these services for the ease of running all 3 services (f
  Based on their document: https://www.mongodb.com/basics/scaling#:~:text=As%20a%20NoSQL%20database%2C%20MongoDB,multiple%20nodes%20through%20horizontal%20scaling.
  ```Yes! As a modern, non-relational database, MongoDB is designed to efficiently handle large datasets through both horizontal and vertical scaling.```
  
+ ## Config
+ In this repo, we have 3 config files. 1 for client, 1 for server and last one for db. 
+ - `clientConfig.js` : Contains API endpoint details
+ - `server/config.js` : Contains Port number
+ - `server/db/config.js` : Contains db name, collection name and url
  ## How to run
  ### Using Docker
   Please read the Readme from `client` and `server` folder. It shows instruction on how to build docker images. We need both `react-app` and `api-service` images to run `docker compose`.
   ##### Docerization
- The the simplicity of running, all 3 services (frontend, backend and db) are bundled together in 3 docker containers. Using `docker-compose up`, we can easily run this in our local.
+For the sake of simplicity, all 3 services (frontend, backend and db) are bundled together in 3 docker containers. Using `docker-compose up`, we can easily run this in our local.
  
  In order to run this, we need 2 images. 
  1. react-app image. run `docker build -t react-app ./client`
@@ -78,13 +85,9 @@ I have also `dockrized` these services for the ease of running all 3 services (f
   ```
   Note: if you are running docker compose multiple times, you can run `docker-compore up --remove-orphan` to destroy existing containers
   ```
-  
-  ### Using local dev machine
-  - Go to `./client` folder service will listen to port `3000`
-  - run `npm start` 
-  - Go to `./server` folder
-  - run `npm start` service will listen to port `5000`
-  - Download and run mongodb in separate terminal . Service will listen to port `27017`
+- React app is running on port 3000 by default.
+- backend api is running on port 5000 by default.
+- db is running on port 27017 by default.
   
   
   
