@@ -96,7 +96,7 @@ const App = () => {
   const formInputs = Object.keys(inputItems).map((key, index) => {
       return (<div className="form-group">
         <label
-          htmlFor={"formGroup" + key}
+          htmlFor={"formGroup" + inputItems[key]}
           className="col-sm-2 colf-for-label label-col"
         >
           {key}

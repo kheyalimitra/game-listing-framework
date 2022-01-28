@@ -15,6 +15,36 @@ From Postman, we can hit http://localhost:5000 to GET, POST or DELETE entries.
 - GET /games(?query1=vale)
 - DELETE /games(?query1=value)
 For more details, please take a look at `games.swagger.yml` under `docs` folder. 
-
+#### REST API in use: 
+- GET: curl --location --request GET 'http://localhost:5000/games'
+- POST: curl --location --request POST 'localhost:5000/add-game' \
+        --header 'Content-Type: application/json' \
+        --data-raw '{
+            "category": "live",
+            "title": "new game from docker",
+            "subtitle": "Still",
+            "description": "Hello there",
+            "images": [
+                {
+                    "id": "1",
+                    "url": "https://images.response.unity3d.com/EloquaImages/clients/Unity/%7B799cd0ab-b793-4762-bceb-42ec7f743e19%7D_Indie-XP-Series-Blog-header-1280x720-1.jpg",
+                    "type": 1
+                }
+            ],
+            "type": 1,
+            "tags": [
+                "mma",
+                "fight",
+                "GSP",
+                "Kheyali Mitra"
+            ],
+            "author": "Kheyali Mitra",
+            "replayBundleUrlJson": "urlgoeshere",
+            "duration": 16.049999237060548,
+            "isDownloadable": false,
+            "isStreamable": true,
+            "version": "1.0"
+        }'
+- DELETE: curl --location --request DELETE 'localhost:8080/games?title=Something%20Else'
 ### `npm test`
 Launches the test runner in the interactive watch mode.
